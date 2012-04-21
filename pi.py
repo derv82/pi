@@ -21,13 +21,14 @@ place = 0
 n = 15
 d = DecimalDiv(16, n * pow(5, n))
 
-print "zeros:", d.count_zeros()
+print "zeros:", d.leading_zeros
 
 x = d.next()
 count = 0
 while x != None:
-	stdout.write(str(x))
-	stdout.flush()
+	#stdout.write(str(x))
+	#stdout.flush()
+	print x, d.place
 	x = d.next()
 	count += 1
 	if count > 50: break

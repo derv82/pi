@@ -5,17 +5,24 @@ import math
 
 """
 	Yields next decimal place of a division
+	Keeps track of leading zeros and current place.
+	
 	Ignores leading whole integers; only
 	cares about what's after the decimal point
 """
 class DecimalDiv:
+	"""
+		Strips leading integers (ensures x < y)
+		Counts leading zeros. Initializes place.
+	"""
 	def __init__(self, numerator, denom, subtract = True):
 		self.x = numerator
 		self.y = denom
 		self.subtract = subtract
-		self.place = 0
-		while self.x > self.y:
+		while self.x >= self.y:
 			self.x -= self.y
+		self.leading_zeros = self.count_zeros()
+		self.place = self.leading_zeros
 	
 	"""
 		Returns number of leading zeros in decimal
@@ -29,8 +36,8 @@ class DecimalDiv:
 			zeros += 1
 		return zeros
 	
-	
 	"""
+		Returns next decimal.
 		Returns None when there is nothing 
 		left to divide (numerator is 0)
 	"""
@@ -47,7 +54,9 @@ class DecimalDiv:
 			quotient += 1
 			self.x -= self.y
 		
+		self.place += 1
 		return quotient
+
 
 def test():
 	n = 11
