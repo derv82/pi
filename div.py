@@ -20,10 +20,6 @@ class DecimalDiv:
 		self.y = denom
 		self.subtract = subtract
 		
-		self.repeating = None
-		self.last_digit = 0
-		self.repeat_count = 0
-		
 		while self.x >= self.y:
 			self.x -= self.y
 		self.leading_zeros = self.count_zeros()
@@ -42,13 +38,11 @@ class DecimalDiv:
 		return zeros
 	
 	"""
-		Returns next decimal.
+		Returns next decimal (by diving num/denom).
 		Returns None when there is nothing 
 		left to divide (numerator is 0)
 	"""
 	def next(self):
-		#if self.repeating != None:
-		#	return self.repeating
 		if self.x == 0:
 			return None
 		
@@ -62,18 +56,14 @@ class DecimalDiv:
 			self.x -= self.y
 		
 		self.place += 1
-		"""
-		if self.last_digit == quotient:
-			self.repeat_count += 1
-			if self.repeat_count > 20:
-				self.repeating = quotient
-		else:
-			self.last_digit = quotient
-			self.repeat_count = 0
-		"""
 		return quotient
 
 
+"""
+	Not exactly a "test", simply calculates atan(1/5)
+	at the 6th step of the series.  This is for error-checking
+	and to ensure the number of zeros in the decimal are correct
+"""
 def test():
 	n = 11
 	d = DecimalDiv(16, n * pow(5, n))
