@@ -19,6 +19,11 @@ class DecimalDiv:
 		self.x = numerator
 		self.y = denom
 		self.subtract = subtract
+		
+		self.repeating = None
+		self.last_digit = 0
+		self.repeat_count = 0
+		
 		while self.x >= self.y:
 			self.x -= self.y
 		self.leading_zeros = self.count_zeros()
@@ -42,6 +47,8 @@ class DecimalDiv:
 		left to divide (numerator is 0)
 	"""
 	def next(self):
+		#if self.repeating != None:
+		#	return self.repeating
 		if self.x == 0:
 			return None
 		
@@ -55,7 +62,15 @@ class DecimalDiv:
 			self.x -= self.y
 		
 		self.place += 1
-		
+		"""
+		if self.last_digit == quotient:
+			self.repeat_count += 1
+			if self.repeat_count > 20:
+				self.repeating = quotient
+		else:
+			self.last_digit = quotient
+			self.repeat_count = 0
+		"""
 		return quotient
 
 
