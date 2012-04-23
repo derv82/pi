@@ -55,6 +55,7 @@ class DecimalDiv:
 			self.x -= self.y
 		
 		self.place += 1
+		
 		return quotient
 
 
