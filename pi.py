@@ -3,6 +3,7 @@
 from div import DecimalDiv
 from sys import stdout
 
+# Number of digits to keep held in cache before printing
 CACHE_SIZE = 7
 
 class Pi:
@@ -137,21 +138,24 @@ f.close()
 pi = Pi()
 pistr = '3.'
 stdout.write('3.')
-#for i in xrange(0, 1000):
-i = 0
-while True:
-	# Get the next digit
-	pistr = str(pi.next())
-	# Print it
-	stdout.write(pistr)
-	stdout.flush()
-	# Compare with the precomputed 100k digits to ensure 
-	# we are calculating the correct digits
-	if len(test) > i - 3 and pistr != test[i + 2]:
-		# If inconsistent, show digit number and display info
-		print "\nmismatched at character %d, %s should be %s" % (i + 1, pistr, test[i + 2])
-		break
-	i += 1
+
+try:
+	i = 0
+	while True:
+		# Get the next digit
+		pistr = str(pi.next())
+		# Print it
+		stdout.write(pistr)
+		stdout.flush()
+		# Compare with the precomputed 100k digits to ensure 
+		# we are calculating the correct digits
+		if len(test) > i - 3 and pistr != test[i + 2]:
+			# If inconsistent, show digit number and display info
+			print "\nmismatched at character %d, %s should be %s" % (i + 1, pistr, test[i + 2])
+			break
+		i += 1
+except KeyboardInterrupt:
+	print '\n\nCalculated %d digits' % (pi.place + 1)
 
 print ''
 exit(0)
