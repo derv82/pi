@@ -12,13 +12,8 @@ atan239 = []
 atan5step   = 1
 atan239step = 1
 
-# Previous number, in case current-total >= 10
-# We may need to change previous decimal
-# 3.2 - 0.0.426 = 3.15...
-prev = 0
-
-# Current number (value at current decimal place)
-current = 0
+# List of last 10 digits found
+last10 = []
 
 # Current depth (number of decimal places)
 place = 0
@@ -36,9 +31,11 @@ def add_digit(digit, sign):
 		current -= digit
 	
 
-print "3\n."
+stdout.write('3.')
 while True:
 	to_remove = []
+	# Current number (value at current decimal place)
+	current = 0
 	for i, div in enumerate(atan5):
 		# If we are at the end of the list,
 		# and the last item's decimal place is
@@ -94,21 +91,26 @@ while True:
 	for remove in to_remove:
 		atan239.remove(remove)
 	
-	while current >= 10:
-		prev += 1
-		current -= 10
-	while current < 0:
-		prev -= 1
-		current += 10
+	last10.insert(0, current)
+	for i in xrange(0, len(last10) - 1):
+		while last10[i] >= 10:
+			last10[i+1] += 1
+			last10[i] -= 10
+		while last10[i] < 0:
+			last10[i+1] -= 1
+			last10[i] += 10
 	
-	next_digit = prev
-	stdout.write(str(next_digit))
-	raw_input()
-	prev = current
+	if len(last10) >= 11:
+		last = last10.pop(-1)
+		stdout.write(str(last))
+		#raw_input()
+	
 	current = 0
-	
 	place += 1
+	if place > 50:
+		break
 
+print ''
 exit(0)
 
 # Testing DecimalDiv
